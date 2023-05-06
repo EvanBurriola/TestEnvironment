@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 195348953}
   - component: {fileID: 195348954}
+  - component: {fileID: 195348955}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -174,6 +175,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &195348955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195348952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95cb696f1e6b185428fb998c63df67a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  groundDrag: 5
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  orientation: {fileID: 447499786}
 --- !u!1 &207721255
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +369,7 @@ GameObject:
   - component: {fileID: 389932114}
   - component: {fileID: 389932113}
   - component: {fileID: 389932112}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +498,6 @@ GameObject:
   - component: {fileID: 556164310}
   - component: {fileID: 556164309}
   - component: {fileID: 556164308}
-  - component: {fileID: 556164311}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Untagged
@@ -565,20 +584,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556164306}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &556164311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556164306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95cb696f1e6b185428fb998c63df67a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  orientation: {fileID: 447499786}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1131,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
