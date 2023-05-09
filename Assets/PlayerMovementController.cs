@@ -4,35 +4,39 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [SerializeField]
+    private Rigidbody rb;
+    
     [Header("Movement")]
-    [Range(0f, 20f)]
-    public float moveSpeed;
-    [Range(0f, 20f)]
-    public float gravityScale;
-    [Range(0f, 20f)]
-    public float jumpHeight;
+    [SerializeField]
+    private float moveSpeed;
+    [SerializeField]
+    private float gravityScale;
+    [SerializeField]
+    private float jumpHeight;
+    [SerializeField]
+    private float turnSpeed;
+    [SerializeField]
+    private float jumpDelay;
     
-    
-
-    public float groundDrag;
-    public float airDrag;
-    public float jumpDelay;
     [Header("Ground Check")]
-    public float playerHeight;
+    [SerializeField]
+    private float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    [SerializeField]
+    private bool grounded;
 
-    public Transform orientation;
-
-    float horizontalInput;
+    private Vector3 input;
+    //Storing axis input in vector instead of individual floats
+    /*float horizontalInput;
     float verticalInput;
+    */
     float jumpInput;
     float timeSinceLastJump;
     
 
     Vector3 moveDirection;
     Vector3 gravity;
-    Rigidbody rb;
 
     private void Start(){
         rb = GetComponent<Rigidbody>();
@@ -44,12 +48,7 @@ public class PlayerMovementController : MonoBehaviour
         //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + .05F, whatIsGround);
         MyInput();
-
-        if (grounded) {
-            rb.drag = groundDrag;
-        } else {
-            rb.drag = airDrag;
-        }
+        Look();
 
         //Update the timer
         timeSinceLastJump += Time.fixedDeltaTime;
@@ -62,14 +61,26 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     private void MyInput(){
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        /*horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        */
+        input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         jumpInput = Input.GetAxisRaw("Jump");
     }
 
+    private void Look()
+    {
+        if (input == Vector3.zero) return;
+        
+            var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
+        
+    }
+
     private void MovePlayer(){
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        /*moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);*/
+        rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * Time.deltaTime);
         if (grounded && timeSinceLastJump >= jumpDelay && jumpInput > 0)
         {
             timeSinceLastJump = 0f;
@@ -79,4 +90,12 @@ public class PlayerMovementController : MonoBehaviour
             
         }
     }
+}
+
+
+public static class Helpers //this class could be made into a seperate script called Helpers to make extension methods that work across also objects/scripts
+{
+    //Extension methods for quaternion rotation that are made outside of Look() so they are not calculated every frame
+    private static Matrix4x4 _isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
+    public static Vector3 ToIso(this Vector3 input) => _isoMatrix.MultiplyPoint3x4(input);
 }
