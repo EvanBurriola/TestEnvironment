@@ -8,12 +8,16 @@ public class FireballController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private Rigidbody rb;
+    [SerializeField]
+    private ParticleSystem part;
 
     // Start is called before the first frame update
     void Start()
     {
+        rb.useGravity = false;
         rb.velocity = transform.forward * moveSpeed;
-        Destroy(gameObject, 3f);
+        part.Play();
+        Destroy(gameObject, part.main.duration);
     }
 
     void OnCollisionEnter(Collision collision)

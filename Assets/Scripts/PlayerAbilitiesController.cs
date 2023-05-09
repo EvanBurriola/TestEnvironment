@@ -18,14 +18,16 @@ public class PlayerAbilitiesController : MonoBehaviour
     void Update()
     {
         getInput();
+        if (LAInput)
+        {
+            Debug.Log("Shoot");
+            LightAbility();
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (LAInput)
-        {
-            LightAbility();
-        }
+        
     }
 
     private void getInput()
