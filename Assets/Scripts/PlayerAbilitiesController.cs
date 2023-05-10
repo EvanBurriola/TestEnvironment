@@ -20,7 +20,6 @@ public class PlayerAbilitiesController : MonoBehaviour
         getInput();
         if (LAInput)
         {
-            Debug.Log("Shoot");
             LightAbility();
         }
     }

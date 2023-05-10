@@ -22,6 +22,11 @@ public class FireballController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Hit");
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(5f);           
+        }
         Destroy(gameObject);
     }
 }
