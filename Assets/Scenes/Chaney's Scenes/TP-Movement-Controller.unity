@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 125771356}
   - component: {fileID: 125771357}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 498816931}
   - component: {fileID: 498816933}
   - component: {fileID: 498816932}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 578210497}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1278,7 +1278,7 @@ GameObject:
   - component: {fileID: 1538706287}
   - component: {fileID: 1538706289}
   - component: {fileID: 1538706288}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1456,7 +1456,7 @@ GameObject:
   - component: {fileID: 1795115109}
   - component: {fileID: 1795115108}
   - component: {fileID: 1795115107}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1558,9 +1558,9 @@ GameObject:
   - component: {fileID: 2089581611}
   - component: {fileID: 2089581610}
   - component: {fileID: 2089581614}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EnemyCapsule
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
