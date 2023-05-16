@@ -85,7 +85,6 @@ public class PlayerMovementController : MonoBehaviour
         {
             timeSinceLastJump = 0f;
             float jumpForce = Mathf.Sqrt(jumpHeight * -2 * gravity.y);
-            Debug.Log(timeSinceLastJump);
             rb.AddForce(new Vector3(0,jumpForce, 0), ForceMode.Impulse);
             
         }

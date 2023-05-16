@@ -1006,6 +1006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 913422343}
   - component: {fileID: 913422344}
+  - component: {fileID: 913422345}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -1036,12 +1037,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913422342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6fce5863101e8a458e999dcb8d93f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 195348953}
+--- !u!114 &913422345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913422342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed1160d1827e46a4c85db2dba441ac34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 195348953}
+  mainCamera: {fileID: 963194227}
+  cameraMode: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
