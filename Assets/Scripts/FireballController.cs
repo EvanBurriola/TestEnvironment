@@ -18,6 +18,7 @@ public class FireballController : MonoBehaviour
         rb.velocity = transform.forward * moveSpeed;
         part.Play();
         Destroy(gameObject, part.main.duration);
+        
     }
 
     void OnCollisionEnter(Collision collision)

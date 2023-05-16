@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     void Start() {
         health = maxHealth;
         slider.value = CalculateHealth();
+        slider.transform.rotation = Quaternion.Euler(0, 45, 0);
+        
     }
 
     // Update is called once per frame
