@@ -27,9 +27,6 @@ public class PlayerMovementController : MonoBehaviour
     private bool grounded;
 
     private Vector3 input;
-    private float mouseX;
-    private float mouseY;
-
     //Storing axis input in vector instead of individual floats
     /*float horizontalInput;
     float verticalInput;
@@ -69,27 +66,21 @@ public class PlayerMovementController : MonoBehaviour
         */
         input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         jumpInput = Input.GetAxisRaw("Jump");
-        mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y");
     }
 
     private void Look()
     {
         if (input == Vector3.zero) return;
-        var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
+        
+            var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
         
     }
-    private void pointTowardsMouse() {
 
-        transform.rotation = Quaternion.Euler(mouseX, 0, mouseY);
-    }
     private void MovePlayer(){
         /*moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);*/
         rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * Time.deltaTime);
-        
-        
         if (grounded && timeSinceLastJump >= jumpDelay && jumpInput > 0)
         {
             timeSinceLastJump = 0f;
