@@ -6,22 +6,25 @@ public class PlayerMovementController : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody rb;
-    
+    [SerializeField]
+    Animator animator;
+
+
     [Header("Movement")]
     [SerializeField]
-    private float moveSpeed;
+    private float moveSpeed = 5f;
     [SerializeField]
-    private float gravityScale;
+    private float gravityScale = 5f;
     [SerializeField]
-    private float jumpHeight;
+    private float jumpHeight = 2f;
     [SerializeField]
-    private float turnSpeed;
+    private float turnSpeed = 360f;
     [SerializeField]
-    private float jumpDelay;
+    private float jumpDelay = 3f;
     
     [Header("Ground Check")]
     [SerializeField]
-    private float playerHeight;
+    private float playerHeight = 1.6f;
     public LayerMask whatIsGround;
     [SerializeField]
     private bool grounded;
@@ -33,13 +36,16 @@ public class PlayerMovementController : MonoBehaviour
     */
     float jumpInput;
     float timeSinceLastJump;
-    
+    bool sprintInput;
+
+
 
     Vector3 moveDirection;
     Vector3 gravity;
 
     private void Start(){
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         rb.freezeRotation = true;
         rb.useGravity = false;
     }
@@ -58,6 +64,7 @@ public class PlayerMovementController : MonoBehaviour
         gravity = gravityScale * Physics.gravity;
         rb.AddForce(gravity, ForceMode.Acceleration);
         MovePlayer();
+        Animate();
     }
 
     private void MyInput(){
@@ -66,6 +73,7 @@ public class PlayerMovementController : MonoBehaviour
         */
         input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         jumpInput = Input.GetAxisRaw("Jump");
+        sprintInput = Input.GetKey(KeyCode.LeftShift);
     }
 
     private void Look()
@@ -80,6 +88,11 @@ public class PlayerMovementController : MonoBehaviour
     private void MovePlayer(){
         /*moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);*/
+        if (sprintInput)
+            moveSpeed = 8;
+        else
+            moveSpeed = 5;
+
         rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * Time.deltaTime);
         if (grounded && timeSinceLastJump >= jumpDelay && jumpInput > 0)
         {
@@ -89,6 +102,14 @@ public class PlayerMovementController : MonoBehaviour
             
         }
     }
+
+    private void Animate() {
+        bool isWalking = (input != Vector3.zero) ;
+        animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isSprinting", sprintInput);
+        
+    }
+
 }
 
 

@@ -36,7 +36,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 4
-    m_ConditionEvent: CharSpeed
+    m_ConditionEvent: charSpeed
     m_EventTreshold: 150
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5161875776499669474}
@@ -61,7 +61,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: CharSpeed
+    m_ConditionEvent: charSpeed
     m_EventTreshold: 150
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8300153089110841763}
@@ -86,7 +86,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 4
-    m_ConditionEvent: CharSpeed
+    m_ConditionEvent: charSpeed
     m_EventTreshold: 75
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1923830676719548667}
@@ -138,7 +138,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: CharSpeed
+    m_ConditionEvent: charSpeed
     m_EventTreshold: 75
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5161875776499669474}
@@ -163,7 +163,7 @@ AnimatorController:
   m_Name: Girl_V2_Controller
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: CharSpeed
+  - m_Name: charSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
