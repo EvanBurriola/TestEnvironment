@@ -12,7 +12,9 @@ public class PlayerMovementController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float moveSpeed = 3f;
+    [SerializeField]
+    private float sprintSpeed = 5f;
     [SerializeField]
     private float gravityScale = 5f;
     [SerializeField]
@@ -89,11 +91,10 @@ public class PlayerMovementController : MonoBehaviour
         /*moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);*/
         if (sprintInput)
-            moveSpeed = 8;
+            rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * sprintSpeed * Time.deltaTime);
         else
-            moveSpeed = 5;
+            rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * Time.deltaTime);
 
-        rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * Time.deltaTime);
         if (grounded && timeSinceLastJump >= jumpDelay && jumpInput > 0)
         {
             timeSinceLastJump = 0f;
