@@ -8,7 +8,7 @@ public class PlayerMovementController : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     Animator animator;
-
+    public Transform groundCheck;
 
     [Header("Movement")]
     [SerializeField]
@@ -25,11 +25,12 @@ public class PlayerMovementController : MonoBehaviour
     private float jumpDelay = 3f;
     
     [Header("Ground Check")]
+    public Vector3 boxSize;
+    public float maxDistance;
     [SerializeField]
-    private float playerHeight = 1.6f;
-    public LayerMask whatIsGround;
-    [SerializeField]
-    private bool grounded;
+    private float playerHeight = 3f;
+    public LayerMask ground;
+    public bool grounded;
 
     private Vector3 input;
     //Storing axis input in vector instead of individual floats
@@ -40,9 +41,6 @@ public class PlayerMovementController : MonoBehaviour
     float timeSinceLastJump;
     bool sprintInput;
 
-
-
-    Vector3 moveDirection;
     Vector3 gravity;
 
     private void Start(){
@@ -54,7 +52,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update(){
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + .05F, whatIsGround);
+        grounded = Physics.CheckSphere(groundCheck.position, maxDistance, ground);
         MyInput();
         Look();
 
@@ -62,7 +60,7 @@ public class PlayerMovementController : MonoBehaviour
         timeSinceLastJump += Time.fixedDeltaTime;
     }
     
-    private void FixedUpdate() {
+    private void FixedUpdate(){
         gravity = gravityScale * Physics.gravity;
         rb.AddForce(gravity, ForceMode.Acceleration);
         MovePlayer();
@@ -78,13 +76,10 @@ public class PlayerMovementController : MonoBehaviour
         sprintInput = Input.GetKey(KeyCode.LeftShift);
     }
 
-    private void Look()
-    {
-        if (input == Vector3.zero) return;
-        
+    private void Look(){
+        if (input == Vector3.zero) return;        
             var rot = Quaternion.LookRotation(input.ToIso(), Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
-        
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);     
     }
 
     private void MovePlayer(){
@@ -95,27 +90,24 @@ public class PlayerMovementController : MonoBehaviour
         else
             rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * moveSpeed * Time.deltaTime);
 
-        if (grounded && timeSinceLastJump >= jumpDelay && jumpInput > 0)
-        {
+        if (grounded && timeSinceLastJump >= jumpDelay && jumpInput > 0){
             timeSinceLastJump = 0f;
             float jumpForce = Mathf.Sqrt(jumpHeight * -2 * gravity.y);
             rb.AddForce(new Vector3(0,jumpForce, 0), ForceMode.Impulse);
-            
         }
     }
 
     private void Animate() {
         bool isWalking = (input != Vector3.zero) ;
         animator.SetBool("isWalking", isWalking);
-        animator.SetBool("isSprinting", sprintInput);
-        
+        animator.SetBool("isSprinting", sprintInput && isWalking);       
     }
+
 
 }
 
-
-public static class Helpers //this class could be made into a seperate script called Helpers to make extension methods that work across also objects/scripts
-{
+//this class could be made into a seperate script called Helpers to make extension methods that work across also objects/scripts
+public static class Helpers{ 
     //Extension methods for quaternion rotation that are made outside of Look() so they are not calculated every frame
     private static Matrix4x4 _isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
     public static Vector3 ToIso(this Vector3 input) => _isoMatrix.MultiplyPoint3x4(input);

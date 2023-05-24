@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     public float sensX;
     public float sensY;
-    public float camSpeed;
+    public float camSpeed = 0.025f;
 
     public string cameraMode;
     // Start is called before the first frame update
