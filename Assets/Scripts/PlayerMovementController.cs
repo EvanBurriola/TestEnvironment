@@ -25,18 +25,11 @@ public class PlayerMovementController : MonoBehaviour
     private float jumpDelay = 3f;
     
     [Header("Ground Check")]
-    public Vector3 boxSize;
     public float maxDistance;
-    [SerializeField]
-    private float playerHeight = 3f;
     public LayerMask ground;
     public bool grounded;
 
     private Vector3 input;
-    //Storing axis input in vector instead of individual floats
-    /*float horizontalInput;
-    float verticalInput;
-    */
     float jumpInput;
     float timeSinceLastJump;
     bool sprintInput;
@@ -68,9 +61,6 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     private void MyInput(){
-        /*horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        */
         input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         jumpInput = Input.GetAxisRaw("Jump");
         sprintInput = Input.GetKey(KeyCode.LeftShift);
@@ -83,8 +73,6 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     private void MovePlayer(){
-        /*moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);*/
         if (sprintInput)
             rb.MovePosition(transform.position + transform.forward * input.normalized.magnitude * sprintSpeed * Time.deltaTime);
         else
