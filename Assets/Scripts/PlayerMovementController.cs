@@ -87,8 +87,9 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Animate() {
         bool isWalking = (input != Vector3.zero) ;
+        animator.SetBool("isSprinting", sprintInput && isWalking);
         animator.SetBool("isWalking", isWalking);
-        animator.SetBool("isSprinting", sprintInput && isWalking);       
+            
     }
 
 
